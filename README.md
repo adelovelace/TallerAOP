@@ -7,6 +7,8 @@
 
 #### Captura del proceso de la transaccion.
 
-![foto usuarios](Capturas/Pointcuttransaccion.PNG)
+![foto transaccion](Capturas/Pointcuttransaccion.PNG)
 
 #### Captura del proceso de retiro de dinero.
+
+![foto retiro](Capturas/RETIRO_DINERO.jpeg)
