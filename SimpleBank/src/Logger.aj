@@ -1,44 +1,46 @@
 
 import java.time.LocalDateTime;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
+import static java.nio.file.StandardOpenOption.*;
+import java.nio.file.*;
+import java.io.*;
 
 public aspect Logger {
-   
-	    void esribirTransacciones(String tipoTran) {
-	    	LocalDateTime lc = LocalDateTime.now();
-	    	String data = " "+lc + " tipo transaccion= " + tipoTran+" ,";
-	    	try {
-	    	 	Files.writeString(Paths.get("log.txt"), data, StandardOpenOption.CREATE,StandardOpenOption.APPEND); 		
-	    	} catch (Exception e) {
-	    		e.printStackTrace();
-	    	}
-	    	
-	    }
 
-	    pointcut successUser() : call(* create*(..) );
-	    after() : successUser() {
-	    //Aspecto ejemplo: solo muestra este mensaje después de haber creado un usuario 
-	    	System.out.println("**** User created ****");
-	    }
+	Path filePath = Paths.get("C:\\Users\\A\\Documents\\DisenoSoftware\\Talleres\\Taller1\\TallerAOP\\SimpleBank\\src\\log.txt");
+	void esribirTransacciones(String tipoTran) {
 
-	    
-	    //Aspecto: Deben hacer los puntos de cortes (pointcut) para crear un log con los tipos de transacciones realizadas.
-	    pointcut successTransaction() : execution(* moneyMakeTransaction(..) );
-	    after() : successTransaction() {
-	    	System.out.println("**** Transaccion realizada ****");
-	    	esribirTransacciones("transaccion");
-	    }
-	    
-	    pointcut successWithdrawal() : execution(* moneyWithdrawal(..) );
-	    after() : successWithdrawal() {
-	    	System.out.println("**** Dinero retirado ****");
-	    	esribirTransacciones("dinero retirado");
-	    		    	
-	    }
-	
-	
+		LocalDateTime lc = LocalDateTime.now();
+		String s = lc + " tipo transaccion: " + tipoTran + "\n";
+		byte data[] = s.getBytes();
+
+		try (OutputStream out = new BufferedOutputStream(Files.newOutputStream(filePath, CREATE, APPEND))) {
+			out.write(data, 0, data.length);
+		} catch (IOException x) {
+			System.err.println(x);
+		}
+	}
+
+	pointcut successUser() : call(* create*(..) );
+
+	after() : successUser() {
+		// Aspecto ejemplo: solo muestra este mensaje después de haber creado un usuario
+		System.out.println("**** User created ****");
+	}
+
+	// Aspecto: Deben hacer los puntos de cortes (pointcut) para crear un log con
+	// los tipos de transacciones realizadas.
+	pointcut successTransaction() : execution(* moneyMakeTransaction(..) );
+
+	after() : successTransaction() {
+		System.out.println("**** Transaccion realizada ****");
+		esribirTransacciones("transaccion");
+	}
+
+	pointcut successWithdrawal() : execution(* moneyWithdrawal(..) );
+
+	after() : successWithdrawal() {
+		System.out.println("**** Dinero retirado ****");
+		esribirTransacciones("dinero retirado");
+	}
+
 }
