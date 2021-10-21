@@ -6,7 +6,7 @@ import java.io.*;
 
 public aspect Logger {
 
-	Path filePath = Paths.get("C:\\Users\\A\\Documents\\DisenoSoftware\\Talleres\\Taller1\\TallerAOP\\SimpleBank\\src\\log.txt");
+	Path filePath = Paths.get("src\\log.txt");
 	void esribirTransacciones(String tipoTran) {
 
 		LocalDateTime lc = LocalDateTime.now();
