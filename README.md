@@ -1,9 +1,12 @@
 # TallerAOP
-Taller de aspectos
+## Taller de aspectos
 
+#### Captura del proceso de creacion del usuario.
 
-![foto usuarios](C:\Users\Alex\Documents\foto)
+![foto usuarios](Capturas/CREAR-USUARIO.PNG)
+
+#### Captura del proceso de la transaccion.
+
 ![foto usuarios](Capturas/Pointcuttransaccion.PNG)
 
-
-
+#### Captura del proceso de retiro de dinero.
